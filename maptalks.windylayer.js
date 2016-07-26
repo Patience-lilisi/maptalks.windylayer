@@ -1,4 +1,147 @@
-/*  Global class for simulating the movement of particle through a 1km wind grid
+/*!
+ *  Based on the works of:
+ *  https://github.com/Esri/wind-js
+ *  https://github.com/cambecc/earth
+ *
+ *  All credits go to them!
+ *
+ *  (c) 2016, fuzhenn MapTalks
+ *  maptalks.org
+ *
+ *  MIT License
+ */
+(function () {
+
+  'use strict';
+
+  var maptalks;
+
+  var nodeEnv = typeof module !== 'undefined' && module.exports;
+  if (nodeEnv)  {
+      maptalks = require('maptalks');
+  } else {
+      maptalks = window.maptalks;
+  }
+
+  maptalks.WindyLayer = maptalks.Layer.extend({
+    initialize: function (id, data, options) {
+      this.setId(id);
+      this._data = data;
+      maptalks.Util.setOptions(this, options);
+    },
+
+    getData: function () {
+      return this._data;
+    },
+
+    setData: function (data) {
+      this._data = data;
+      this.redraw();
+      return this;
+    },
+
+    /**
+     * Export the WindyLayer's profile JSON.
+     * @return {Object} layer's profile JSON
+     */
+    toJSON: function () {
+      var profile = {
+          'type'    : 'WindyLayer',
+          'id'      : this.getId(),
+          'options' : this.config(),
+          'data'    : this.getData()
+      };
+      return json;
+    }
+  });
+
+  /**
+   * Reproduce a WindyLayer from JSON.
+   * @param  {Object} json - layer's profile JSON
+   * @return {maptalks.WindyLayer}
+   * @static
+   * @private
+   * @function
+   */
+  maptalks.WindyLayer._fromJSON = function (json) {
+      if (!json || json['type'] !== 'WindyLayer') { return null; }
+      var layer = new maptalks.WindyLayer(json['id'], json['data']);
+      return layer;
+  };
+
+  if (nodeEnv) {
+      exports = module.exports = maptalks.WindyLayer;
+  }
+
+  maptalks.renderer.windylayer = {};
+
+  maptalks.renderer.windylayer.Canvas = maptalks.renderer.Canvas.extend({
+    initialize: function (layer) {
+      this._layer = layer;
+    },
+
+    draw: function () {
+      var map = this.getMap();
+      if (!this._canvas) {
+        this._prepareCanvas();
+        this._windy = new Windy({
+            'canvas': this._canvas,
+            'data': this._layer.getData(),
+            // 'project' : function (lon, lat) {
+            //     var p = map.coordinateToContainerPoint(new maptalks.Coordinate(lon, lat));
+            //     return [p.x, p.y];
+            // },
+            // 'unproject' : function (x, y) {
+            //     var c = map.containerPointToCoordinate(new maptalks.Point(x, y));
+            //     return [c.x, c.y];
+            // },
+            'onDraw': maptalks.Util.bind(function () {
+                this._requestMapToRender();
+            }, this)
+        });
+        this._windy.start.apply(this._windy, this._getWindExtents());
+      } else {
+        this._prepareCanvas();
+        this._windy.start.apply(this._windy, this._getWindExtents());
+      }
+    },
+
+    _getWindExtents: function () {
+      var map = this.getMap(),
+          extent = map.getExtent();
+      return [
+        [[0,0],[map.width, map.height]],
+        map.width,
+        map.height,
+        [[extent.xmin, extent.ymin],[extent.xmax, extent.ymax]]
+      ]
+    },
+
+    _redraw: function () {
+      this.render();
+
+    },
+
+    _onMoveStart: function () {
+      this._windy.stop();
+    },
+
+    _onMoveEnd: function () {
+      this._redraw();
+    },
+
+    _onZoomStart: function (param) {
+      this._windy.stop();
+    },
+
+    _onZoomEnd: function () {
+      this._redraw();
+    }
+  });
+
+  maptalks.WindyLayer.registerRenderer('canvas', maptalks.renderer.windylayer.Canvas);
+
+  /*  Global class for simulating the movement of particle through a 1km wind grid
 
     credit: All the credit for this work goes to: https://github.com/cambecc for creating the repo:
       https://github.com/cambecc/earth. The majority of this code is directly take nfrom there, since its awesome.
@@ -435,16 +578,10 @@ var Windy = function( params ){
     }
 
     (function frame() {
-        try {
-            windy.timer = setTimeout(function() {
-              requestAnimationFrame(frame);
-              evolve();
-              draw();
-            }, 1000 / FRAME_RATE);
-        }
-        catch (e) {
-            console.error(e);
-        }
+      evolve();
+      draw();
+      params.onDraw();
+      windy.timer = maptalks.Util.requestAnimFrame(frame);
     })();
   }
 
@@ -458,7 +595,6 @@ var Windy = function( params ){
       width: width,
       height: height
     };
-
     stop();
 
     // build grid
@@ -475,7 +611,7 @@ var Windy = function( params ){
 
   var stop = function(){
     if (windy.field) windy.field.release();
-    if (windy.timer) clearTimeout(windy.timer)
+    if (windy.timer) maptalks.Util.cancelAnimFrame(windy.timer)
   };
 
 
@@ -488,17 +624,4 @@ var Windy = function( params ){
   return windy;
 }
 
-
-
-// shim layer with setTimeout fallback
-window.requestAnimationFrame = (function(){
-  return  window.requestAnimationFrame       ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame    ||
-          window.oRequestAnimationFrame ||
-          window.msRequestAnimationFrame ||
-          function( callback ){
-            window.setTimeout(callback, 1000 / 20);
-          };
 })();
-
