@@ -40,6 +40,13 @@
       return this;
     },
 
+    redraw: function () {
+        if (this._getRenderer()) {
+            this._getRenderer()._redraw();
+        }
+        return this;
+    },
+
     /**
      * Export the WindyLayer's profile JSON.
      * @return {Object} layer's profile JSON
@@ -83,7 +90,7 @@
     draw: function () {
       var map = this.getMap();
       if (!this._canvas) {
-        this._prepareCanvas();
+        this.prepareCanvas();
         this._windy = new Windy({
             'canvas': this._canvas,
             'data': this._layer.getData(),
@@ -96,12 +103,12 @@
             //     return [c.x, c.y];
             // },
             'onDraw': maptalks.Util.bind(function () {
-                this._requestMapToRender();
+                this.requestMapToRender();
             }, this)
         });
         this._windy.start.apply(this._windy, this._getWindExtents());
       } else {
-        this._prepareCanvas();
+        this.prepareCanvas();
         this._windy.start.apply(this._windy, this._getWindExtents());
       }
     },
@@ -118,24 +125,16 @@
     },
 
     _redraw: function () {
-      this.render();
-
+      this.prepareRender()
+      this.draw();
     },
 
-    _onMoveStart: function () {
+    onMoveStart: function () {
       this._windy.stop();
     },
 
-    _onMoveEnd: function () {
-      this._redraw();
-    },
-
-    _onZoomStart: function (param) {
+    onZoomStart: function (param) {
       this._windy.stop();
-    },
-
-    _onZoomEnd: function () {
-      this._redraw();
     }
   });
 
