@@ -9,7 +9,7 @@
   },
   "plugins": ["mocha"],
   "rules": {
-    "no-var" : false,
-    "prefer-const": false
+    "no-var" : 0,
+    "prefer-const": 0
   }
 }
