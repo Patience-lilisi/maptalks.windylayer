@@ -1,5 +1,5 @@
 /*!
- * maptalks.windylayer v0.1.0
+ * maptalks.windylayer v0.1.1
  * LICENSE : MIT
  * (c) 2016-2017 maptalks.org
  */
@@ -609,6 +609,10 @@ WindyLayer.registerRenderer('canvas', function (_maptalks$renderer$Ca) {
         }
     };
 
+    _class.prototype.drawOnInteracting = function drawOnInteracting() {
+        // nothing to draw when interacting
+    };
+
     _class.prototype._getWindExtents = function _getWindExtents() {
         var map = this.getMap(),
             extent = map.getExtent();
@@ -648,6 +652,6 @@ exports.WindyLayer = WindyLayer;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-typeof console !== 'undefined' && console.log('maptalks.windylayer v0.1.0, requires maptalks@^0.23.0.');
+typeof console !== 'undefined' && console.log('maptalks.windylayer v0.1.1, requires maptalks@^0.23.0.');
 
 })));
