@@ -85,6 +85,10 @@ WindyLayer.registerRenderer('canvas', class extends maptalks.renderer.CanvasRend
         }
     }
 
+    drawOnInteracting() {
+        // nothing to draw when interacting
+    }
+
     _getWindExtents() {
         const map = this.getMap(),
             extent = map.getExtent();
