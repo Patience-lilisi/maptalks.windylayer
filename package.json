@@ -1,6 +1,6 @@
 {
   "name": "maptalks.windylayer",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "A maptalks Layer to draw animation of wind.",
   "license": "MIT",
   "repository": {
@@ -33,10 +33,13 @@
     "karma-ie-launcher": "^1.0.0",
     "karma-mocha": "^1.3.0",
     "karma-mocha-reporter": "^2.2.1",
-    "maptalks": "<2.0.0",
-    "maptalks-build-helpers": "^0.1.0",
+    "maptalks": "^0.23.0",
+    "maptalks-build-helpers": "^0.2.0",
     "minimist": "^1.2.0",
     "mocha": "^2.4.5"
+  },
+  "peerDependencies": {
+    "maptalks": "^0.23.0"
   },
   "dependencies": {}
 }

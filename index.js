@@ -60,7 +60,7 @@ export class WindyLayer extends maptalks.Layer {
    */
     static fromJSON(json) {
         if (!json || json['type'] !== 'WindyLayer') { return null; }
-        var layer = new WindyLayer(json['id'], json['data'], json['options']);
+        const layer = new WindyLayer(json['id'], json['data'], json['options']);
         return layer;
     }
   }
@@ -85,19 +85,9 @@ WindyLayer.registerRenderer('canvas', class extends maptalks.renderer.CanvasRend
         }
     }
 
-    getCanvasImage() {
-        var image = super.getCanvasImage();
-        if (this.log) {
-            console.log(image);
-        }
-        this.log = false;
-        return image;
-    }
-
     _getWindExtents() {
         const map = this.getMap(),
             extent = map.getExtent();
-        console.log(extent);
         return [
         [[0, 0], [map.width, map.height]],
             map.width,
@@ -116,8 +106,11 @@ WindyLayer.registerRenderer('canvas', class extends maptalks.renderer.CanvasRend
         delete this._windy;
     }
 
+    onDragRotateStart() {
+        this._windy.stop();
+    }
+
     onMoveStart() {
-        this.log = true;
         this._windy.stop();
     }
 
@@ -126,7 +119,6 @@ WindyLayer.registerRenderer('canvas', class extends maptalks.renderer.CanvasRend
     }
 
     onZoomEnd(param) {
-        this.log = true;
         super.onZoomEnd(param);
     }
   });
