@@ -6,6 +6,10 @@ An experiment layer plugin to draw animation of wind, this is a fork of Esri's [
 
 ![screenshot](https://camo.githubusercontent.com/23c6c087b534f84b8579722e46431141ef72c748/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f3335313136342f323334393839352f33366261316339612d613536392d313165332d383539642d3564373533656130383938632e6a706567)
 
+## Examples
+
+* [Wind Visualization from GFS Data](https://fuzhenn.github.io/maptalks.windylayer/demo/). ([Original](http://esri.github.io/wind-js/))
+
 ## Install
   
 * Install with npm: ```npm install maptalks.windylayer```. 
@@ -26,10 +30,6 @@ var windyLayer = new maptalks.WindyLayer('wind', data, { 'opacity' : 0.3 }).addT
 ## Supported Browsers
 
 IE 9-11, Chrome, Firefox, other modern and mobile browsers.
-
-## Examples
-
-* [Wind Visualization from GFS Data](https://fuzhenn.github.io/maptalks.windylayer/demo/). ([Original](http://esri.github.io/wind-js/))
 
 ## API Reference
 
