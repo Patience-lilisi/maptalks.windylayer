@@ -29,7 +29,7 @@ IE 9-11, Chrome, Firefox, other modern and mobile browsers.
 
 ## Examples
 
-* [Wind Visualization from GFS Data](https://maptalks.github.io/maptalks.windylayer/demo/). ([Original](http://esri.github.io/wind-js/))
+* [Wind Visualization from GFS Data](https://fuzhenn.github.io/maptalks.windylayer/demo/). ([Original](http://esri.github.io/wind-js/))
 
 ## API Reference
 
