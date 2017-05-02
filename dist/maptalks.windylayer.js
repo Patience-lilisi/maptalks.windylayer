@@ -3,6 +3,9 @@
  * LICENSE : MIT
  * (c) 2016-2017 maptalks.org
  */
+/*!
+ * requires maptalks@^0.23.0 
+ */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('maptalks')) :
 	typeof define === 'function' && define.amd ? define(['exports', 'maptalks'], factory) :
@@ -606,19 +609,9 @@ WindyLayer.registerRenderer('canvas', function (_maptalks$renderer$Ca) {
         }
     };
 
-    _class.prototype.getCanvasImage = function getCanvasImage() {
-        var image = _maptalks$renderer$Ca.prototype.getCanvasImage.call(this);
-        if (this.log) {
-            console.log(image);
-        }
-        this.log = false;
-        return image;
-    };
-
     _class.prototype._getWindExtents = function _getWindExtents() {
         var map = this.getMap(),
             extent = map.getExtent();
-        console.log(extent);
         return [[[0, 0], [map.width, map.height]], map.width, map.height, [[extent.xmin, extent.ymin], [extent.xmax, extent.ymax]]];
     };
 
@@ -632,8 +625,11 @@ WindyLayer.registerRenderer('canvas', function (_maptalks$renderer$Ca) {
         delete this._windy;
     };
 
+    _class.prototype.onDragRotateStart = function onDragRotateStart() {
+        this._windy.stop();
+    };
+
     _class.prototype.onMoveStart = function onMoveStart() {
-        this.log = true;
         this._windy.stop();
     };
 
@@ -642,7 +638,6 @@ WindyLayer.registerRenderer('canvas', function (_maptalks$renderer$Ca) {
     };
 
     _class.prototype.onZoomEnd = function onZoomEnd(param) {
-        this.log = true;
         _maptalks$renderer$Ca.prototype.onZoomEnd.call(this, param);
     };
 
@@ -652,5 +647,7 @@ WindyLayer.registerRenderer('canvas', function (_maptalks$renderer$Ca) {
 exports.WindyLayer = WindyLayer;
 
 Object.defineProperty(exports, '__esModule', { value: true });
+
+typeof console !== 'undefined' && console.log('maptalks.windylayer v0.1.0, requires maptalks@^0.23.0.');
 
 })));
