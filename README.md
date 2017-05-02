@@ -1,6 +1,6 @@
 # maptalks.windylayer
 
-[![CircleCI](https://circleci.com/gh/fuzhenn/maptalks.windylayer.svg?style=svg)](https://circleci.com/gh/fuzhenn/maptalks.windylayer) [![NPM Version](https://img.shields.io/npm/v/maptalks.windylayer.svg)](https://github.com/maptalks/maptalks.windylayer)
+[![NPM Version](https://img.shields.io/npm/v/maptalks.windylayer.svg)](https://github.com/maptalks/maptalks.windylayer)
 
 An experiment layer plugin to draw animation of wind, this is a fork of Esri's [wind-js](https://github.com/Esri/wind-js). Most of the codes is ported from original great works.
 
