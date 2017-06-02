@@ -33,7 +33,7 @@ IE 9-11, Chrome, Firefox, other modern and mobile browsers.
 
 ## API Reference
 
-```WindyLayer``` is a subclass of [maptalks.Layer](http://docs.maptalks.org/api/maptalks.Layer.html) and inherits all the methods of its parent.
+```WindyLayer``` is a subclass of [maptalks.Layer](https://maptalks.github.io/docs/api/Layer.html) and inherits all the methods of its parent.
 
 ### `Constructor`
 
@@ -44,7 +44,7 @@ new maptalks.WindyLayer(id, data, options)
 * id **String** layer id
 * data **Marker[]** layer data, an array of maptalks.Marker
 * options **Object** options
-    * options defined in [maptalks.Layer](http://docs.maptalks.org/api/maptalks.Layer.html)
+    * options defined in [maptalks.Layer](https://maptalks.github.io/docs/api/Layer.html)
 
 ### `getData`
 
