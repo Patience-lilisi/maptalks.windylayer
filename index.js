@@ -75,7 +75,7 @@ WindyLayer.registerRenderer('canvas', class extends maptalks.renderer.CanvasRend
                 'canvas': this.canvas,
                 'data': this.layer.getData(),
                 'onDraw': () => {
-                    this.requestMapToRender();
+                    this.setCanvasUpdated();
                 }
             });
             this._windy.start.apply(this._windy, this._getWindExtents());
