@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wind demo</title>
-    <link type="text/css" rel="stylesheet" href="https://unpkg.com/maptalks/dist/maptalks.css">
-    <script type="text/javascript" src="https://unpkg.com/maptalks/dist/maptalks.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maptalks/dist/maptalks.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/maptalks/dist/maptalks.min.js"></script>
     <script src="../dist/maptalks.windylayer.js"></script>
     <style>
         html,body{
@@ -26,11 +26,11 @@
             'content' : ' &copy; ArcGIS Online '
         },
         baseLayer : new maptalks.TileLayer("tile",{
-            urlTemplate : 'http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}'
+            urlTemplate : 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}'
         }),
         layers : [
             new maptalks.TileLayer("tile",{
-                urlTemplate : 'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}'
+                urlTemplate : 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}'
             })
         ]
     });
